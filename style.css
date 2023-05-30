@@ -198,3 +198,18 @@ header img {
         text-align: center;
     }
 }
+
+@media(max-width: 480px) {
+    .play-episode-container {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+
+    .play-title-time-text {
+        margin: 0;
+    }
+
+    #play-pause-button-icons {
+        margin-top: 1.5rem;
+    }
+}
