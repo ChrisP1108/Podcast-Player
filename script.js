@@ -20,9 +20,13 @@ let audio = document.querySelector("#audio-play");
 
 let playing = false;
 
-let progressBarCounter = null;
+let playCounter = null;
 
 function setCurrentPlayTime() {
+    if (audio.currentTime >= audio.duration) {
+        clearInterval(playCounter);
+        return;
+    }
     let totalDurationTime = audio.currentTime;
     let hours = Math.floor(totalDurationTime / 3600);
     hours = hours < 10 ? `0${hours}` : hours;
@@ -49,7 +53,7 @@ function setCurrentPlayTime() {
         }
     }
     hours = Number(hours) < 10 ? `0${Number(hours)}` : hours;
-    episodeTime.innerText = hours > 0 ? `${hours}:${minutes}:${seconds}` : minutes > 0 ? `${minutes}:${seconds}` : `00:${seconds}`;
+    episodeTime.innerText = audio.duration > 3600 ? `${hours}:${minutes}:${seconds}` : audio.duration > 60 ? `${minutes}:${seconds}` : `00:${seconds}`;
 }
 
 // Toggle Play
@@ -60,14 +64,14 @@ function togglePlay() {
         audio.play().then(() => {
             playButtonIcon.classList.add("playing-active");
         });
-        progressBarCounter = setInterval(() => {
+        playCounter = setInterval(() => {
             progressFiller.style.right = `${100 - ((audio.currentTime / audio.duration) * 100)}%`;
             setCurrentPlayTime();
         }, 250);
     } else {
         playButtonIcon.classList.remove("playing-active");
         audio.pause();
-        clearInterval(progressBarCounter);
+        clearInterval(playCounter);
     }
 }
 
@@ -123,7 +127,7 @@ function initDescriptionScrollText() {
                 episodeDescription.style.left = `${descriptionTextOffset}px`
             }
 
-        }, 22)
+        }, 28)
     }, 5000)
 
 }
