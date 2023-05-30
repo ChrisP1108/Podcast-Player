@@ -118,10 +118,10 @@
 <body>
     <?php if ($error_loading_rss): ?>
 
-        <main class="error-msg">
+        <div class="error-msg">
             <h1>Error Loading Podcast</h1>
             <h4><?php echo $err_msg; ?></h4>
-        </main>
+    </div>
 
     <?php else: ?>
 
