@@ -43,27 +43,34 @@ h1 {
     line-height: 1.25;
 }
 
-h4 {
+h3 {
     font-size: min(1.375rem, 8vw);
 }
 
-h5 {
+h4 {
     font-size: min(1.125rem, 6vw);
 }
 
-h6 {
+h5 {
     font-size: min(1rem, 5vw);
     font-weight: 400;
 }
 
-p {
+h6 {
     font-size: min(0.75rem, 4vw);
+    font-weight: 400;
+}
+
+p {
+    font-size: min(0.625rem, 3.5vw);
+    font-weight: 400;
 }
 
 main {
     padding: 20px max(16px, 1%);
     max-width: 1200px;
     margin: 0 auto;
+    background: #00000090;
 }
 
 .error-msg {
@@ -83,7 +90,7 @@ main {
 header {
     display: flex;
     align-items: center;
-    background: #00000090;
+    margin-bottom: 8px;
 }
 
 header img {
@@ -147,6 +154,11 @@ header img {
 
 #episode-selected-time {
     margin-top: 0.5rem;
+    display: flex;
+}
+
+#episode-selected-time h6:nth-child(2) {
+    margin: 0 0.375rem 0 0;
 }
 
 .player-episode-description-container {
@@ -182,6 +194,32 @@ header img {
     pointer-events: none;
 }
 
+#episodes-list {
+    list-style: none;
+}
+
+#episodes-list li {
+    display: flex;
+    align-items: center;
+    padding: 8px max(12px, 1%) 8px 0;
+    min-width: 0;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#episodes-list li img {
+    max-width: 2.5rem;
+    border-radius: 0.25rem;
+}
+
+.episode-list-title-description {
+    margin-left: 1rem;
+}
+
+.episode-list-title-description p {
+    white-space: nowrap;
+}
+
 @media(max-width: 720px) {
     header {
         flex-direction: column;
@@ -211,5 +249,10 @@ header img {
 
     #play-pause-button-icons {
         margin-top: 1.5rem;
+    }
+
+    #episode-selected-time {
+        justify-content: center;
+        margin-left: -0.75rem;
     }
 }
