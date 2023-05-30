@@ -120,7 +120,7 @@
 
         <main class="error-msg">
             <h1>Error Loading Podcast</h1>
-            <h5><?php echo $err_msg; ?></h5>
+            <h4><?php echo $err_msg; ?></h4>
         </main>
 
     <?php else: ?>
@@ -132,7 +132,7 @@
                 </a>
                 <div class="player-control-container">
                     <div class="player-control-title-links">
-                        <h4><?php echo $channel->title?></h4>
+                        <h3><?php echo $channel->title?></h3>
                     </div>
                     <div class="play-episode-container">
                         <div id="play-pause-button-icons">
@@ -180,10 +180,10 @@
                             <audio id="audio-play" src="<?php echo $audio_data->url ?>">
                         </div>
                         <div class="play-title-time-text">
-                            <h6 id="episode-selected-title">
+                            <h5 id="episode-selected-title">
                                 <?php echo $episode_selected->title ?>
-                                </h6>
-                            <h6 id="episode-selected-time">
+                            </h5>
+                            <div id="episode-selected-time">
                                 <?php 
                                     $time = ($audio_data['length'] / $audio_timing_divider) + 900;
 
@@ -206,33 +206,46 @@
                                         $time = $time - ($seconds * 1000);
                                     }
 
-                                    echo '<span id="current-episode-time">';
+                                    echo '<h5 id="current-episode-time" style="width: ';
 
                                     if ($hours > 0) {
                                         $output = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
-                                        echo '00:00:00';
+                                        echo '7ch;">00:00:00';
                                     } else {
                                         $output = sprintf("%02d:%02d", $minutes, $seconds);
-                                        echo '00:00';
+                                        echo '5ch;">00:00';
                                     } 
 
-                                    echo '</span> / ';
+                                    echo '</h5><h5> / </h5>';
 
-                                    echo '<span>'.$output.'</span>';
+                                    echo '<h5 id="current-episode-duration">'.$output.'</h5>';
                                 ?>
-                            </h6>
+                            </div>
                         </div>
                     </div>
                     <div class="player-episode-description-container">
-                        <p id="player-episode-description">
+                        <h6 id="player-episode-description">
                             <?php echo $episode_selected->description; ?>
-                        </p>
+                        </h6>
                     </div>
                     <div id="play-progress-bar">
                         <div id="progress-duration-filler" style="right: 100%;"></div>
                     </div>
                 </div>
             </header>
+            <ol id="episodes-list">
+                <?php foreach($episodes as $episode): ?>
+                
+                    <li data-episodeid="<?php echo $episode->guid; ?>">
+                        <img src="<?php echo $podcast_image; ?>" alt="<?php echo $episode->title; ?>">
+                        <div class="episode-list-title-description">
+                            <h5><?php echo $episode->title; ?></h5>
+                            <p><?php echo $episode->description; ?></p>
+                        </div>
+                    </li>
+
+                <?php endforeach; ?>
+            </ol>
         </main>
         <script>
             const audioDivider = <?php echo $audio_timing_divider; ?>;
