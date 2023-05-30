@@ -1,8 +1,33 @@
+// Size Handling
+
+// Episode Header
+
+const header = document.querySelector("header");
+
+// Episode List
+
+const episodeListContainer = document.querySelector("#episodes-list");
+
+function setSectionHeights() {
+    const main = document.querySelector("main");
+    main.style.height = `${window.innerHeight}px`;
+    const padding = 16;
+    const headerMarginBottom = 16;
+    header.style.marginBottom = `${headerMarginBottom}px`;
+    header.style.paddingTop = `${padding}px`;
+    const remainderHeight = (window.innerHeight - header.clientHeight) - headerMarginBottom;
+    episodeListContainer.style.height = `${remainderHeight - padding}px`;
+}
+
+setSectionHeights();
+
+window.addEventListener("resize", setSectionHeights);
+
+// Episode Output List
+
 // Episodes Data
 
 const episodes = rssData.channel.item;
-
-console.log(episodes);
 
 // Progress Bar Filler
 
@@ -107,16 +132,20 @@ window.addEventListener("mouseup", () => {
 
 // Episode Description Text Scroll Across Handling
 
-function initDescriptionScrollText() {
+let startDescriptionScroll;
 
-    setTimeout(() => {
+let descriptionDelayStart;
+
+const episodeDescription = document.querySelector("#player-episode-description");
+
+function initDescriptionScrollText() {
+    descriptionDelayStart = setTimeout(() => {
         let descriptionTextOffset = 0;
 
-        const episodeDescription = document.querySelector("#player-episode-description");
         const descriptionWidth = episodeDescription.scrollWidth;
         const containerWidth = episodeDescription.parentNode.clientWidth;
 
-        setInterval(() => {
+        startDescriptionScroll = setInterval(() => {
 
             descriptionTextOffset--;
 
@@ -128,8 +157,45 @@ function initDescriptionScrollText() {
             }
 
         }, 28)
-    }, 5000)
-
+    }, 5000);
 }
 
 window.addEventListener("load", initDescriptionScrollText);
+
+// Click On Episode List Item Event Handler
+
+const episodesListItems = episodeListContainer.querySelectorAll("li");
+
+const episodeSelectedTitle = document.querySelector("#episode-selected-title");
+
+episodesListItems.forEach(item => {
+    item.addEventListener("click", () => {
+        const clickedData = episodes.find(episode => episode.guid === item.dataset.episodeid);
+
+        // Stop Existing Scrolling Of Description Text
+
+        clearInterval(startDescriptionScroll);
+
+        clearTimeout(descriptionDelayStart);
+
+        // Set Title Text
+
+        episodeSelectedTitle.innerText = clickedData.title;
+
+        // Set Description Text
+
+        episodeDescription.innerText = clickedData.description;
+
+        episodeDescription.style.left = `0px`;
+
+        console.log(clickedData.enclosure['@attributes'].url);
+
+        audio.src = clickedData.enclosure['@attributes'].url;
+
+        playing = true;
+
+        togglePlay();
+        
+        initDescriptionScrollText();
+    });
+});
