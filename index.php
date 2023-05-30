@@ -64,7 +64,9 @@
 
             $episode_selected = $parsed_track ? $episodes[$parsed_track] : $episodes[0];
 
-            echo '<script>console.log('.json_encode($parsed_rss_feed).');</script>';
+            $rss_data = json_encode($parsed_rss_feed);
+
+            echo '<script>console.log('.$rss_data.');</script>';
 
             }
         }
@@ -234,6 +236,7 @@
         </main>
         <script>
             const audioDivider = <?php echo $audio_timing_divider; ?>;
+            const rssData = <?php echo $rss_data; ?>;
         </script>
         <script src="script.js"></script>
     <?php endif; ?>
