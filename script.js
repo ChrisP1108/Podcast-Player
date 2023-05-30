@@ -1,3 +1,9 @@
+// Episodes Data
+
+const episodes = rssData.channel.item;
+
+console.log(episodes);
+
 // Progress Bar Filler
 
 const progressFiller = document.querySelector("#progress-duration-filler");
@@ -16,7 +22,39 @@ let playing = false;
 
 let progressBarCounter = null;
 
-playButtonIcon.addEventListener('click', () => {
+function setCurrentPlayTime() {
+    let totalDurationTime = audio.currentTime;
+    let hours = Math.floor(totalDurationTime / 3600);
+    hours = hours < 10 ? `0${hours}` : hours;
+    if (hours > 59) {
+        hours = `00`;
+    }
+    totalDurationTime = totalDurationTime - (Number(hours) * 3600);
+    let minutes = Math.floor(totalDurationTime / 60);
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    if (minutes > 59) {
+        minutes = `00`;
+        hours = Number(hours) + 1;
+    }
+    totalDurationTime = totalDurationTime - (Number(minutes) * 60);
+    let seconds = Math.round(totalDurationTime);
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
+    if (seconds > 59) {
+        seconds = `00`;
+        minutes++;
+        minutes = minutes < 10 ? `0${minutes}` : minutes;
+        if (minutes > 59) {
+            minutes = `00`;
+            hours = Number(hours) + 1;
+        }
+    }
+    hours = Number(hours) < 10 ? `0${Number(hours)}` : hours;
+    episodeTime.innerText = hours > 0 ? `${hours}:${minutes}:${seconds}` : minutes > 0 ? `${minutes}:${seconds}` : `00:${seconds}`;
+}
+
+// Toggle Play
+
+function togglePlay() {
     playing = !playing;
     if (playing) {
         audio.play().then(() => {
@@ -24,32 +62,19 @@ playButtonIcon.addEventListener('click', () => {
         });
         progressBarCounter = setInterval(() => {
             progressFiller.style.right = `${100 - ((audio.currentTime / audio.duration) * 100)}%`;
-            let totalDurationTime = audio.currentTime;
-            let hours = Math.floor(totalDurationTime / 3600);
-            hours = hours < 10 ? `0${hours}` : hours;
-            totalDurationTime = totalDurationTime - (Number(hours) * 3600);
-            let minutes = Math.floor(totalDurationTime / 60);
-            minutes = minutes < 10 ? `0${minutes}` : minutes;
-            totalDurationTime = totalDurationTime - (Number(minutes) * 60);
-            let seconds = Math.round(totalDurationTime);
-            seconds = seconds < 10 ? `0${seconds}` : seconds;
-            if (hours > 59) {
-                hours = `00`;
-            }
-            if (minutes > 59) {
-                minutes = `00`;
-                hours = Number(hours) + 1;
-            }
-            if (seconds > 59) {
-                seconds = `00`;
-                minutes = Number(minutes) <= 59 ? `00` : Number(minutes) + 1;
-            }
-            episodeTime.innerText = hours > 0 ? `${hours}:${minutes}:${seconds}` : minutes > 0 ? `${minutes}:${seconds}` : `00:${seconds}`;
+            setCurrentPlayTime();
         }, 250);
     } else {
         playButtonIcon.classList.remove("playing-active");
         audio.pause();
         clearInterval(progressBarCounter);
+    }
+}
+
+playButtonIcon.addEventListener("click", togglePlay);
+window.addEventListener("keyup", e => {
+    if (e.code === "Space") {
+        togglePlay();
     }
 });
 
@@ -64,6 +89,7 @@ function setProgressBar(e) {
     progressFiller.style.right = `${100 - (barPercentage * 100)}%`;
     const playPosition = barPercentage * audio.duration;
     audio.currentTime = playPosition;
+    setCurrentPlayTime();
 }
 
 progressBar.addEventListener("click", setProgressBar);
