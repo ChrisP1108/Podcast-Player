@@ -45,29 +45,30 @@
                 $error_loading_rss = true;
             } else {
 
-            $parsed_rss_feed->channel->rssUrl = $rss_url;
+                $parsed_rss_feed->channel->rssUrl = $rss_url;
 
-            $parsed_rss_feed->channel->description = strip_tags($parsed_rss_feed->channel->description);
+                $parsed_rss_feed->channel->description = strip_tags($parsed_rss_feed->channel->description);
 
-            foreach($parsed_rss_feed->channel->item as $index => $item) {
-                $description_text = strip_tags($item->description);
-                $item->description = $description_text;
-            }
+                foreach($parsed_rss_feed->channel->item as $index => $item) {
+                    $description_text = strip_tags($item->description);
+                    $item->description = $description_text;
+                }
 
-            $channel = $parsed_rss_feed->channel;
+                $channel = $parsed_rss_feed->channel;
 
-            $episodes = $parsed_rss_feed->channel->item;
+                $episodes = $parsed_rss_feed->channel->item;
 
-            // Episode Selected
+                // Episode Selected
 
-            $parsed_track = intval($params['track']) - 1 ?? 0;
+                $parsed_track = intval($params['track']) - 1 ?? 0;
 
-            $episode_selected = $parsed_track ? $episodes[$parsed_track] : $episodes[0];
+                $episode_selected = $parsed_track ? $episodes[$parsed_track] : $episodes[0];
 
-            $rss_data = json_encode($parsed_rss_feed);
+                $starting_episode_id = $episode_selected->guid;
 
-            echo '<script>console.log('.$rss_data.');</script>';
+                $rss_data = json_encode($parsed_rss_feed);
 
+                echo '<script>console.log('.$rss_data.');</script>';
             }
         }
     }
@@ -81,8 +82,6 @@
     }
 
     $podcast_image = !$error_loading_rss ? $parsed_rss_feed->channel->image->url : 'will-francis-ZDNyhmgkZlQ-unsplash.jpg';
-
-    $audio_timing_divider = 16.0182204082;
 ?>
 
 <!DOCTYPE html>
@@ -184,42 +183,9 @@
                                 <?php echo $episode_selected->title ?>
                             </h5>
                             <div id="episode-selected-time">
-                                <?php 
-                                    $time = ($audio_data['length'] / $audio_timing_divider) + 900;
-
-                                    // Convert milliseconds to hours, minutes, and seconds
-
-                                    $hours = floor($time / 3600000);
-
-                                    if ($hours > 0) {
-                                        $time = $time - ($hours * 3600000);
-                                    }
-
-                                    $minutes = floor($time / 60000);
-
-                                    if ($minutes > 0) {
-                                        $time = $time - ($minutes * 60000);
-                                    }
-
-                                    $seconds = floor($time / 1000);
-                                    if ($seconds > 0) {
-                                        $time = $time - ($seconds * 1000);
-                                    }
-
-                                    echo '<h5 id="current-episode-time" style="width: ';
-
-                                    if ($hours > 0) {
-                                        $output = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
-                                        echo '7ch;">00:00:00';
-                                    } else {
-                                        $output = sprintf("%02d:%02d", $minutes, $seconds);
-                                        echo '5ch;">00:00';
-                                    } 
-
-                                    echo '</h5><h5> / </h5>';
-
-                                    echo '<h5 id="current-episode-duration">'.$output.'</h5>';
-                                ?>
+                                <h5 id="current-episode-time"></h5>
+                                <h5> / </h5>
+                                <h5 id="current-episode-duration"></h5>
                             </div>
                         </div>
                     </div>
@@ -248,10 +214,12 @@
             </ol>
         </main>
         <script>
-            const audioDivider = <?php echo $audio_timing_divider; ?>;
+            const startingEpisodeId = "<?php echo $starting_episode_id; ?>";
             const rssData = <?php echo $rss_data; ?>;
         </script>
-        <script src="script.js"></script>
+        <script src="/scripts/rss_data.js"></script>
+        <script src="/scripts/element_selectors.js"></script>
+        <script src="/scripts/event_handlers.js"></script>
     <?php endif; ?>
 </body>
 </html>
