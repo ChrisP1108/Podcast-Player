@@ -8,9 +8,25 @@
 
     parse_str($url_components['query'], $params);
 
-    // RSS Url
+    // Url Parameters
 
     $rss_url = $params['url'];
+
+    $style_color_1 = $params['color1'] ?? null;
+    $style_color_2 = $params['color2'] ?? null;
+    $style_color_2 = $params['color3'] ?? null;
+    $style_theme = $params['theme'] ?? '#000';
+    $style_play_button = $params['buttoncolor'] ?? null;
+
+    if (!$style_play_button) {
+        if ($style_theme === '#000' || $style_theme === 'dark') {
+            $style_play_button = '#fff';
+        } else {
+            $style_play_button = '#000';
+        }
+    }
+
+    $track_selected = intval($params['track']) - 1 ?? 0;
 
     // Variables For Error Handling
 
@@ -60,9 +76,7 @@
 
                 // Episode Selected
 
-                $parsed_track = intval($params['track']) - 1 ?? 0;
-
-                $episode_selected = $parsed_track ? $episodes[$parsed_track] : $episodes[0];
+                $episode_selected = $track_selected ? $episodes[$track_selected] : $episodes[0];
 
                 $starting_episode_id = $episode_selected->guid;
 
@@ -82,6 +96,8 @@
     }
 
     $podcast_image = !$error_loading_rss ? $parsed_rss_feed->channel->image->url : 'will-francis-ZDNyhmgkZlQ-unsplash.jpg';
+
+    // Sample Url - url=https://feeds.soundcloud.com/users/soundcloud:users:287325177/sounds.rss
 ?>
 
 <!DOCTYPE html>
@@ -104,13 +120,28 @@
         <?php endforeach; ?>
 
         <!-- Podcast SEO Data END -->
+
     <?php endif; ?>
 
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Podcast Player</title>
     <style>
+        * {
+            color: <?php echo $style_theme === 'light' ? '#000' : '#fff'; ?>;
+            font-family: 'Poppins', sans-serif;
+        }
         body::before {
             background-image: url(<?php echo $podcast_image; ?>);
+        }
+        :root {
+            --transition: 0.25s;
+            --color1: #CAB653;
+            --color2: #CAB653;
+            --color3: #666666;
+            --theme: <?php echo $style_theme === 'light' ? '#fff' : '#000'; ?>
+        }
+        .play-icon path, .pause-icon path {
+            fill: <?php echo $style_play_button; ?> !important;
         }
     </style>
 </head>
@@ -139,7 +170,7 @@
 
                             <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 145.2 145.2"><defs>
                                 <style>
-                                    .cls-1 { fill: none; }      
+                                    <!-- .cls-1 { fill: none; }       -->
                                     .cls-2 { clip-path: url(#clip-path); }      
                                     .cls-3 { opacity: 1; }      
                                     .cls-4 { clip-path: url(#clip-path-3); }         
@@ -163,14 +194,7 @@
                             <!-- Pause Icon SVG Code START -->
 
                             <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 145.2 145.2">
-                                <defs>
-                                    <style>
-                                    .cls-1 {
-                                        fill: #fff;
-                                    }
-                                    </style>
-                                </defs>
-                                <path class="cls-1" d="M-132,798.77a72.61,72.61,0,0,1-72.6,72.6,72.6,72.6,0,0,1-72.6-72.6,72.59,72.59,0,0,1,72.6-72.6A72.6,72.6,0,0,1-132,798.77Zm-84-38.3h-19.41v75.79H-216Zm41.3,0h-19.41v75.79h19.41Z" transform="translate(277.21 -726.17)"/>
+                                <path class="pbi-1" d="M-132,798.77a72.61,72.61,0,0,1-72.6,72.6,72.6,72.6,0,0,1-72.6-72.6,72.59,72.59,0,0,1,72.6-72.6A72.6,72.6,0,0,1-132,798.77Zm-84-38.3h-19.41v75.79H-216Zm41.3,0h-19.41v75.79h19.41Z" transform="translate(277.21 -726.17)"/>
                             </svg>
 
                             <!-- Pause Icon SVG Code END -->
@@ -203,7 +227,29 @@
                 <?php foreach($episodes as $episode): ?>
                 
                     <li data-episodeid="<?php echo $episode->guid; ?>">
-                        <img src="<?php echo $podcast_image; ?>" alt="<?php echo $episode->title; ?>">
+                        <div class="episode-list-image-play">
+                            <img src="<?php echo $podcast_image; ?>" alt="<?php echo $episode->title; ?>">
+                            <svg class="list-item-play-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 145.2 145.2"><defs>
+                                <style>
+                                    .lpi-1 { fill: none; }      
+                                    .lpi-2 { clip-path: url(#clip-path); }      
+                                    .lpi-3 { opacity: inherit; }      
+                                    .lpi-4 { clip-path: url(#clip-path-3); }         
+                                </style>
+                                <clipPath id="clip-path" transform="translate(-264.41 -245.59)">
+                                    <rect class="lpi-1" x="264.41" y="245.59" width="145.2" height="145.2"></rect>
+                                </clipPath>
+                                <clipPath id="clip-path-3" transform="translate(-264.41 -245.59)">
+                                    <rect class="lpi-1" x="255.41" y="238.59" width="163.2" height="153.2"></rect>
+                                </clipPath></defs>
+                                <g class="lpi-2">
+                                <g class="lpi-2">
+                                <g class="lpi-3">
+                                <g class="lpi-4">
+                                <path style="fill: #fff" class="cls-5" d="M378.93,318.19,311,357.4V279Zm30.68,0a72.6,72.6,0,1,0-72.6,72.6,72.6,72.6,0,0,0,72.6-72.6" transform="translate(-264.41 -245.59)"></path>
+                                </g></g></g></g>
+                            </svg>
+                        </div>
                         <div class="episode-list-title-description">
                             <h5><?php echo $episode->title; ?></h5>
                             <p><?php echo $episode->description; ?></p>
