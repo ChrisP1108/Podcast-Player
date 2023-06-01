@@ -4,8 +4,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -34,7 +32,7 @@ body::before {
 }
 
 body::after {
-    background: #000;
+    background: var(--theme);
     z-index: -1;
     opacity: 0.8;
 }
@@ -91,12 +89,13 @@ header {
     padding: 0 max(16px, 1%);
     display: flex;
     align-items: center;
+    height: auto;
 }
 
 header img {
     max-width: 14.5rem;
     object-fit: cover;
-    height: 100%;
+    height: auto;
 }
 
 .player-control-container {
@@ -108,10 +107,6 @@ header img {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-.player-control-title-links {
-    color: #fff;
 }
 
 .play-episode-container {
@@ -183,7 +178,7 @@ header img {
     width: 100%;
     height: calc(12px + 0.75rem);
     border-radius: 2rem;
-    background: rgb(102, 102, 102);
+    background: var(--color3);
     position: relative;
     overflow: hidden;
 }
@@ -192,7 +187,7 @@ header img {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: red;
+    background: linear-gradient(90deg, var(--color1), var(--color2));
     border-radius: 2rem;
     transition: 0.15s;
     pointer-events: none;
@@ -210,15 +205,39 @@ header img {
     padding: 8px max(16px, 1%);
     min-width: 0;
     cursor: pointer;
-    transition: 0.25s;
+    transition: var(--transition);
+    border-radius: 0.5rem;
+    position: relative;
+    overflow: hidden;
 }
 
-#episodes-list li:hover {
-    background: red;
-}
+#episodes-list li::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    inset: 0;
+    opacity: 0.5;
+} 
 
 #episodes-list p {
     -webkit-mask-image: -webkit-linear-gradient(left, black 0px, black calc(100% - 16px), transparent 100%);
+}
+
+#episodes-list .episode-list-image-play {
+    position: relative;
+}
+
+#episodes-list .episode-list-image-play svg {
+    position: absolute;
+    width: 75%;
+    height: 75%;
+    inset: 0;
+    margin: auto;
+    opacity: 0;
+    transition: var(--transition);
+    mix-blend-mode: plus-lighter;
 }
 
 #episodes-list li img {
@@ -229,10 +248,19 @@ header img {
 .episode-list-title-description {
     margin-left: 1rem;
     min-width: 0;
+    z-index: 1;
 }
 
 .episode-list-title-description p {
     white-space: nowrap;
+}
+
+.list-item-active::before {
+    background: var(--color2);
+}
+
+.list-item-active .episode-list-image-play svg {
+    opacity: 0.5 !important;
 }
 
 @media(max-width: 720px) {
