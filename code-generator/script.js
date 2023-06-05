@@ -93,43 +93,52 @@ fontField.addEventListener("input", () => {
 // Render Podcast Player To Preview
 
 async function rssRender(url) {
-    codesContainer.classList.add("remove");
-    loadingSpinner.classList.add("show");
-    submitButton.classList.add("hide");
-    previewWindowMessage.innerText = '';
-    const res = await fetch(getRssRoute, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify({ url })
-    });
-
-    if (res.ok) {
-        errHandler.err = false;
-        rssUrl = await res.json();
-        const fieldsArr = Object.entries(formData).filter(([key, value]) => key !== "url");
-        const urlParams = fieldsArr .map(([key, value], index) => {
-            const outputText = `${key}=${value}`;
-            if (index + 1 === fieldsArr.length) {
-                return outputText;
-            } else return outputText + "&";
-        }).join("");
-        outputUrl = `${podcastPlayerOrigin}?url=${rssUrl}&${urlParams}`;
-        previewWindow.src = outputUrl;
-        previewWindow.addEventListener("load", () => {
-            loadingSpinner.classList.remove("show");
-            submitButton.classList.remove("hide");
-            copyUrlButton.href= outputUrl;
-            codesContainer.classList.remove("remove");
+    try {
+        codesContainer.classList.add("remove");
+        loadingSpinner.classList.add("show");
+        submitButton.classList.add("hide");
+        previewWindowMessage.innerText = '';
+        const res = await fetch(getRssRoute, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ url })
         });
-    } else {
+
+        if (res.ok) {
+            errHandler.err = false;
+            rssUrl = await res.json();
+            const fieldsArr = Object.entries(formData).filter(([key, value]) => key !== "url");
+            const urlParams = fieldsArr .map(([key, value], index) => {
+                const outputText = `${key}=${value}`;
+                if (index + 1 === fieldsArr.length) {
+                    return outputText;
+                } else return outputText + "&";
+            }).join("");
+            outputUrl = `${podcastPlayerOrigin}?url=${rssUrl}&${urlParams}`;
+            previewWindow.src = outputUrl;
+            previewWindow.addEventListener("load", () => {
+                loadingSpinner.classList.remove("show");
+                submitButton.classList.remove("hide");
+                copyUrlButton.href= outputUrl;
+                codesContainer.classList.remove("remove");
+            });
+        } else {
+            loadingSpinner.classList.remove("show");
+            codesContainer.classList.add("remove");
+            submitButton.classList.remove("hide");
+            errHandler.err = true;
+            const errMsg = await res.json();
+            errHandler.msg = errMsg.message;
+        }
+    } catch (err) {
+        console.error(err);
         loadingSpinner.classList.remove("show");
         codesContainer.classList.add("remove");
         submitButton.classList.remove("hide");
         errHandler.err = true;
-        const errMsg = await res.json();
-        errHandler.msg = errMsg.msg;
+        errHandler.msg = 'There was a connection error.  RSS data could not be retrieved.';
     }
 
     if (errHandler.err) {
@@ -167,10 +176,9 @@ function submitHandler() {
 
 document.querySelector("form").addEventListener("submit", e => {
     e.preventDefault();
-    if (e.submitter.id === "generate-button") {
-        submitHandler();
-    }
 });
+
+submitButton.addEventListener("click", submitHandler); 
 
 // Key Press Event Handling
 
