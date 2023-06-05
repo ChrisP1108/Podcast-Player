@@ -79,8 +79,7 @@ main {
     min-height: 100vh;
     min-height: 100dvh;
     gap: 1.25rem;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding: 60px max(4%, 16px);
 }
 
 header {
