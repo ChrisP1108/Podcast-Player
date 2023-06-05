@@ -11,21 +11,23 @@ function get_rss_data($req) {
 	}
 	
 	$apple_podcast_id = explode('/id', $url)[1];
+
+	$err_msg = 'Unable to retrieve RSS data. Check that the apple podcast url is valid.';
 	
 	if (!apple_podcast_id) {
-		return new WP_Error('error getting apple id', 'Unable to retrieve RSS data. Check that the apple podcast url is valid.', ['status' => 400]);
+		return new WP_Error('error getting apple id', $err_msg, ['status' => 400]);
 	}
 	
 	$get_rss_data = json_decode(@file_get_contents('https://itunes.apple.com/lookup?id='.$apple_podcast_id.'&entity=podcast'));
 	
 	if (!$get_rss_data) {
-		return new WP_Error('error getting RSS', 'Unable to retrieve RSS data. Check that the apple podcast url is valid.', ['status' => 400]);
+		return new WP_Error('error getting RSS', $err_msg, ['status' => 400]);
 	}
 
     $rss_url = $rss_url = get_object_vars($get_rss_data)['results'][0]->feedUrl;
 	
 	if (!$rss_url) {
-		return new WP_Error('error getting RSS', 'Unable to retrieve RSS data. Check that the apple podcast url is valid.', ['status' => 400]);
+		return new WP_Error('error getting RSS', $err_msg, ['status' => 400]);
 	}
 	
 	return rest_ensure_response($rss_url);
