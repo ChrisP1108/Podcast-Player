@@ -231,6 +231,8 @@ header img {
 
 #episodes-list .episode-list-image-play {
     position: relative;
+    max-width: 2.5rem;
+    display: flex;
 }
 
 #episodes-list .episode-list-image-play svg {
@@ -245,7 +247,7 @@ header img {
 }
 
 #episodes-list li img {
-    max-width: 2.5rem;
+    max-width: 100%;
     border-radius: 0.25rem;
 }
 
