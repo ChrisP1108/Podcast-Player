@@ -169,4 +169,4 @@
         $audio_data = $episode_selected->enclosure->attributes() ? $episode_selected->enclosure->attributes() : null;
     }
 
-    $podcast_image = !$error_loading_rss ? $parsed_rss_feed->channel->image->url : 'will-francis-ZDNyhmgkZlQ-unsplash.jpg';
+    $podcast_image = !$error_loading_rss ? explode('&size=', $parsed_rss_feed->channel->image->url)[0] . '&size=Medium' : 'will-francis-ZDNyhmgkZlQ-unsplash.jpg';
