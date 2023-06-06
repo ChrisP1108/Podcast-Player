@@ -224,7 +224,7 @@ function setTotalEpisodeTime(item, event) {
 
             episodeDuration.innerText = hasHours ? `${totalHours}:${totalMinutes}:${totalSeconds}` : `${totalMinutes}:${totalSeconds}`;
 
-            episodeTime.style.width = hasHours ? '7ch' : '5ch';
+            episodeTime.style.width = hasHours ? '7.3ch' : '5ch';
 
             if (event === 'init') {
                 episodeTime.innerText = hasHours ? `00:00:00` : `00:00`;
