@@ -18,9 +18,20 @@
 
     $style_mode = $params['mode'] ?? null;
 
-    if ($style_mode === 'dark' || $style_mode === null) {
-        $style_mode = '#000';
-    } else {
+    if ($style_mode !== null && $style_mode !== 'dark' && $style_mode !== 'light') {
+        $style_mode = '#' . $style_mode;
+    }
+
+    switch($style_mode) {
+        case 'dark':
+            $style_mode = '#000';
+            break;
+        case 'light':
+            $style_mode = '#fff';
+            break;
+    }
+
+    if ($style_mode === null) {
         $style_mode = '#fff';
     }
 
@@ -157,6 +168,9 @@
 
                     $title_text = htmlspecialchars($item->title);
                     $item->title = $title_text;
+
+                    $guid = htmlspecialchars(strip_tags($item->guid));
+                    $item->guid = $guid;
 
                     if ($single_episode !== 'false' && strval($item->guid) === $single_episode) {
                         $track_selected = $item_iteration_count;
