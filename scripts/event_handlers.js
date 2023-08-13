@@ -166,7 +166,7 @@ function setTotalEpisodeTime(item, event) {
             currentEpisodeData = null;
     }
 
-    if (currentEpisodeData !== null) {
+    if (currentEpisodeData !== null && currentEpisodeData !== undefined) {
 
         // Highlight List Item That Is Set To Be Played
 
