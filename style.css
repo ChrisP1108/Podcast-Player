@@ -89,10 +89,14 @@ header {
     height: auto;
 }
 
+header a {
+    display: flex;
+}
+
 header img {
-    max-width: 14.5rem;
+    max-width: min(14.5rem, 33vw);
     object-fit: cover;
-    height: auto;
+    height: 100%;
 }
 
 .player-control-container {
@@ -280,52 +284,14 @@ header img {
     opacity: 0.4 !important;
 }
 
-@media(max-width: 640px) {
-    header {
-        flex-direction: column;
-    }
+@media(max-width: 600px) {
 
-    header img {
-        display: block;
-        margin: 0 auto;
-        max-width: min(12vh, 100%);
-    }
-
-    .player-control-title-links {
-        text-align: center;
-    }
-
-    .play-title-time-text {
-        flex-direction: column-reverse;
-    }
-
-    .play-episode-container {
-        justify-content: center;
-    }
-
-    #episode-selected-time {
-        justify-content: center;
-    }
-
-    #episode-selected-title {
-        margin-top: 1rem;
-    }
-
-    .play-episode-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .play-title-time-text {
-        margin: 0;
-    }
-
-    #play-pause-button-icons {
-        margin-bottom: 0.5rem;
+    header a img {
+        display: none;
     }
 
     .player-control-container {
-        padding: 20px 0 0;
+        padding: 0 2%;
     }
 
 }
