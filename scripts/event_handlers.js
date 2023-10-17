@@ -113,8 +113,6 @@ let startDescriptionScroll;
 
 let descriptionDelayStart;
 
-const episodeDescription = document.querySelector("#player-episode-description");
-
 function initDescriptionScrollText() {
 
     // Stop Existing Scrolling Of Description Text
@@ -184,7 +182,7 @@ function setTotalEpisodeTime(item, event) {
 
         // Set Description Text
 
-        episodeDescription.innerText = currentEpisodeData.description;
+        episodeDescription.innerText = typeof currentEpisodeData.description === 'object' ? '' : currentEpisodeData.description;
 
         episodeDescription.style.left = `0px`;
 
@@ -269,4 +267,3 @@ setTotalEpisodeTime(null, 'init');
             audio.currentTime = 0;
         }
     });
-
