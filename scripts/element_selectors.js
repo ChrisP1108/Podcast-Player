@@ -47,3 +47,7 @@ if (fullPlayer) {
 // Episode Selected Title
 
 const episodeSelectedTitle = document.querySelector("#episode-selected-title");
+
+// Episode Description Text
+
+const episodeDescription = document.querySelector("#player-episode-description");
