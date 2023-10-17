@@ -159,7 +159,7 @@
                             </div>
                             <div class="episode-list-title-description">
                                 <h5><?php echo $episode->title; ?></h5>
-                                <p><?php echo $episode->description; ?></p>
+                                <?php echo !strlen($episode->description) ? '' : '<p>'. $episode->description . '</p>'; ?>
                             </div>
                         </li>
                     <?php endforeach; ?>
