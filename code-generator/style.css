@@ -417,14 +417,14 @@ button:hover::after, a:hover::after {
     z-index: 5;
 }
 
-#player-codes-container {
+#player-codes-container, #download-container {
     width: 100%;
     display: flex;
     gap: 32px;
     flex-direction: column;
 }
 
-#player-codes-container h3 {
+#player-codes-container h3, #download-container h3 {
     text-align: center;
 }
 
