@@ -31,35 +31,32 @@
                         </div>
                     </section>
                     <section>
-                        <label for="mode">Mode</label>
-                        <select name="mode" id="mode">
-                            <option value="light">Light</option>
-                            <option value="dark">Dark</option>
-                        </select>
+                        <label for="mode">Background Color</label>
+                        <input name="mode" id="mode" type="color" value="#262626">
                     </section>
                     <section>
                         <label for="color1">Theme Color</label>
-                        <input name="color1" id="color1" type="color">
+                        <input name="color1" id="color1" type="color" value="#E3530F">
                     </section>
                     <section>
                         <label for="textcolor">Text Color</label>
-                        <input name="textcolor" id="textcolor" type="color">
+                        <input name="textcolor" id="textcolor" type="color" value="#FFFFFF">
                     </section>
                     <section>
                         <label for="progressbarcolor">Progress Bar Color</label>
-                        <input name="progressbarcolor" id="progressbarcolor" type="color">
+                        <input name="progressbarcolor" id="progressbarcolor" type="color" value="#333333">
                     </section>
                     <section>
                         <label for="buttoncolor">Play/Pause Button Color</label>
-                        <input name="buttoncolor" id="buttoncolor" type="color">
+                        <input name="buttoncolor" id="buttoncolor" type="color" value="#FFFFFF">
                     </section>
                     <section>
                         <label for="highlightcolor">Selected Episode Highlight Color</label>
-                        <input name="highlightcolor" id="highlightcolor" type="color">
+                        <input name="highlightcolor" id="highlightcolor" type="color" value="#7A7A7A">
                     </section>
                     <section>
                         <label for="scrollcolor">Scroll Bar Thumb Color</label>
-                        <input name="scrollcolor" id="scrollcolor" type="color">
+                        <input name="scrollcolor" id="scrollcolor" type="color" value="#E3530F">
                     </section>
                     <button type="submit" id="generate-button" class="pseudo">
                         Generate Podcast Player
@@ -101,6 +98,16 @@
                     <h6>HTML Embed Code</h6>
                     <button id="embed-code-copy-button" class="pseudo">Copy Embed Code</button>
                 </section>
+            </div>
+        </div>
+        <div id="download-container" class="remove">
+            <h3>Download Podcast</h3>
+            <div class="field-sections frame-shadow pseudo output-codes">
+                <section>
+                    <h6>MP3 Files</h6>
+                    <button id="download-button" class="pseudo">Download All Podcast Episodes</button>
+                </section>
+                <section id="download-items-generated" class="remove"></section>
             </div>
         </div>
     </div>
