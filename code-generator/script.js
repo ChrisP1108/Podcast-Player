@@ -43,6 +43,14 @@ const copyUrlButton = document.querySelector("#direct-url-copy-button");
 
 const copyEmbedButton = document.querySelector("#embed-code-copy-button");
 
+// Download Podcast Selectors
+
+const downloadContainer = document.querySelector("#download-container");
+
+const downloadButton = document.querySelector("#download-button");
+
+const downloadItemsGenerated = document.querySelector("#download-items-generated");
+
 
 // EVENT HANDLERS
 
@@ -90,10 +98,63 @@ fontField.addEventListener("input", () => {
     }
 });  
 
+// Download Button Click Handler
+
+downloadButton.addEventListener("click", async () => {
+    let errorLoading = false;
+    const items = [];
+    try {
+        const res = await fetch(rssUrl);
+        if (res.ok) {
+            const data = await res.text();
+            const parser = new DOMParser();
+            const dataParser = parser.parseFromString(data,"text/xml");
+            const episodes = dataParser.querySelectorAll("item");
+            episodes.forEach(episode => {
+                const title = episode.querySelector("title").innerHTML;
+                const file = episode.querySelector('[type="audio/mpeg"]').attributes[0].value;
+                const published = episode.querySelector("pubDate").innerHTML;
+                items.push({ title, file, published });
+            });
+        } else errorLoading = true;
+    } catch(err) {
+        console.error(err)
+        errorLoading = true;
+    }
+
+    // Handle error in downloading
+
+    if (errorLoading) {
+        alert("There was an error when attempting to download the podcast episodes.  Please try again.")
+    }
+
+    // Generate a tags before downloading
+
+    downloadItemsGenerated.innerHTML = '';
+
+    items.forEach(item => {
+        const aTag = document.createElement("a");
+        aTag.href = item.file;
+        aTag.dataset.published = item.published;
+        aTag.dataset.title = item.title;
+        aTag.download = `${item.published} - ${item.title}`
+        downloadItemsGenerated.appendChild(aTag);
+    });
+
+    // Run downloading of each a Tag Generated
+
+    downloadItemsGenerated.querySelectorAll("a").forEach((tag, index) => {
+        setTimeout(() => {
+            tag.click();
+        }, 1000 * index);
+    });
+});
+
 // Render Podcast Player To Preview
 
 async function rssRender(url) {
     try {
+        downloadContainer.classList.add("remove");
         codesContainer.classList.add("remove");
         loadingSpinner.classList.add("show");
         submitButton.classList.add("hide");
@@ -123,10 +184,12 @@ async function rssRender(url) {
                 submitButton.classList.remove("hide");
                 copyUrlButton.href= outputUrl;
                 codesContainer.classList.remove("remove");
+                downloadContainer.classList.remove("remove");
             });
         } else {
             loadingSpinner.classList.remove("show");
             codesContainer.classList.add("remove");
+            downloadContainer.classList.add("remove");
             submitButton.classList.remove("hide");
             errHandler.err = true;
             const errMsg = await res.json();
@@ -136,6 +199,7 @@ async function rssRender(url) {
         console.error(err);
         loadingSpinner.classList.remove("show");
         codesContainer.classList.add("remove");
+        downloadContainer.classList.add("remove");
         submitButton.classList.remove("hide");
         errHandler.err = true;
         errHandler.msg = 'There was a connection error.  RSS data could not be retrieved.';
@@ -144,6 +208,7 @@ async function rssRender(url) {
     if (errHandler.err) {
         loadingSpinner.classList.remove("show");
         codesContainer.classList.add("remove");
+        downloadContainer.classList.add("remove");
         submitButton.classList.remove("hide");
         previewWindow.src = "";
         previewWindowMessage.innerText = errHandler.msg;
