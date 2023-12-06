@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     line-height: 1.5;
+    text-wrap: pretty;
 }
 
 body {
@@ -42,6 +43,7 @@ h1 {
 
 h3 {
     font-size: min(1.375rem, 8vw);
+    text-wrap: balance;
 }
 
 h4 {
@@ -311,3 +313,10 @@ header img {
     background: var(--scrollbarcolor); 
     border-radius: 10px;
 }
+
+/* SVG Styling */
+
+.cls-1 { fill: none; }      
+.cls-2 { clip-path: url(#clip-path); }      
+.cls-3 { opacity: 1; }      
+.cls-4 { clip-path: url(#clip-path-3); }  
