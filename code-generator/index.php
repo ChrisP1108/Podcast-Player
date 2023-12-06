@@ -12,14 +12,14 @@
     <title>Podcast Player Code Generator</title>
 </head>
 <body class="pseudo">
-    <h1>Podcast Player Code Generator</h1>
+    <h1>Podcast Player Code Generator / Downloader</h1>
     <div class="content pseudo">
         <div class="fields-preview-row">
             <main class="column pseudo">
                 <h3>Podcast Feed / Styling</h3>
                 <form class="field-sections frame-shadow pseudo"> 
                     <section class="podcast-url-section">
-                        <label for="url">Apple Podcast Url</label>
+                        <label for="url">Apple Podcast Or Direct RSS Url</label>
                         <input name="url" id="url" type="text">
                         <button id="clear-rss-button" class="clear-url-button pseudo">Clear Url Field</button>
                     </section>
