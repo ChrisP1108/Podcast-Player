@@ -152,24 +152,31 @@ downloadButton.addEventListener("click", async () => {
 
 // Render Podcast Player To Preview
 
-async function rssRender(url) {
+async function rssRender(url, type) {
     try {
         downloadContainer.classList.add("remove");
         codesContainer.classList.add("remove");
         loadingSpinner.classList.add("show");
         submitButton.classList.add("hide");
         previewWindowMessage.innerText = '';
-        const res = await fetch(getRssRoute, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({ url })
-        });
+
+        let res = { ok: false };
+
+        if (type === "apple") {
+            res = await fetch(getRssRoute, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({ url })
+            });
+        } else {
+            res = await fetch(url);
+        }
 
         if (res.ok) {
             errHandler.err = false;
-            rssUrl = await res.json();
+            rssUrl = type === "rss" ? url : await res.json();
             const fieldsArr = Object.entries(formData).filter(([key, value]) => key !== "url");
             const urlParams = fieldsArr .map(([key, value], index) => {
                 const outputText = `${key}=${value}`;
@@ -202,7 +209,7 @@ async function rssRender(url) {
         downloadContainer.classList.add("remove");
         submitButton.classList.remove("hide");
         errHandler.err = true;
-        errHandler.msg = 'There was a connection error.  RSS data could not be retrieved.';
+        errHandler.msg = 'There was a connection error.  RSS data could not be retrieved or the url provided may be invalid.';
     }
 
     if (errHandler.err) {
@@ -228,10 +235,12 @@ function submitHandler() {
     }
     const { url } = formData;
     if (url && url.includes("/podcasts.apple.com/") && url.includes("/id")) {
-        rssRender(url);
-    } else {
+        rssRender(url, "apple");
+    } else if (url) {
+        rssRender(url, "rss")
+    } else {    
         codesContainer.classList.add("remove");
-        const fieldsErr = "Please enter a valid apple podcast url.";
+        const fieldsErr = "Please enter a valid apple podcast or direct RSS url.";
         previewWindowMessage.innerText = fieldsErr;
         previewWindow.src = '';
     }
