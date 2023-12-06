@@ -52,6 +52,25 @@
     </style>
 </head>
 <body>
+
+    <!-- Play Icon SVG Symbol START   -->
+
+    <svg style="display: none">
+        <symbol id="play-icon-symbol">    
+        <defs>                        
+            <clipPath id="clip-path" transform="translate(-264.41 -245.59)">
+                <rect class="cls-1" x="264.41" y="245.59" width="145.2" height="145.2"></rect>
+            </clipPath>
+            <clipPath id="clip-path-3" transform="translate(-264.41 -245.59)">
+                <rect class="cls-1" x="255.41" y="238.59" width="163.2" height="153.2"></rect>
+            </clipPath>
+        </defs>
+        <path style="fill: #fff" d="M378.93,318.19,311,357.4V279Zm30.68,0a72.6,72.6,0,1,0-72.6,72.6,72.6,72.6,0,0,0,72.6-72.6" transform="translate(-264.41 -245.59)"></path>
+    </symbol> 
+    </svg>
+
+    <!-- Play Icon SVG Symbol END   -->
+
     <?php if ($error_loading_rss): ?>
 
         <div class="error-msg">
@@ -74,22 +93,15 @@
                         <div id="play-pause-button-icons">
                             <!-- Play Icon SVG Code START -->
 
-                            <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 145.2 145.2"><defs>
-                                
-                                <clipPath id="clip-path" transform="translate(-264.41 -245.59)">
-                                    <rect class="cls-1" x="264.41" y="245.59" width="145.2" height="145.2"></rect>
-                                </clipPath>
-                                <clipPath id="clip-path-3" transform="translate(-264.41 -245.59)">
-                                    <rect class="cls-1" x="255.41" y="238.59" width="163.2" height="153.2"></rect>
-                                </clipPath></defs>
-                                <path style="fill: #fff" d="M378.93,318.19,311,357.4V279Zm30.68,0a72.6,72.6,0,1,0-72.6,72.6,72.6,72.6,0,0,0,72.6-72.6" transform="translate(-264.41 -245.59)"></path>
+                            <svg class="play-icon" viewBox="0 0 145.2 145.2">
+                                <use href="#play-icon-symbol"></use>
                             </svg>
 
                             <!-- Play Icon SVG Code END -->
 
                             <!-- Pause Icon SVG Code START -->
 
-                            <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 145.2 145.2">
+                            <svg class="pause-icon" viewBox="0 0 145.2 145.2">
                                 <path class="pbi-1" d="M-132,798.77a72.61,72.61,0,0,1-72.6,72.6,72.6,72.6,0,0,1-72.6-72.6,72.59,72.59,0,0,1,72.6-72.6A72.6,72.6,0,0,1-132,798.77Zm-84-38.3h-19.41v75.79H-216Zm41.3,0h-19.41v75.79h19.41Z" transform="translate(277.21 -726.17)"/>
                             </svg>
 
@@ -126,14 +138,8 @@
                         <li data-episodeid="<?php echo $episode->guid; ?>">
                             <div class="episode-list-image-play">
                                 <img src="<?php echo $podcast_image; ?>" alt="<?php echo $episode->title; ?>">
-                                <svg class="list-item-play-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 145.2 145.2"><defs>
-                                    <clipPath id="clip-path" transform="translate(-264.41 -245.59)">
-                                        <rect class="cls-1" x="264.41" y="245.59" width="145.2" height="145.2"></rect>
-                                    </clipPath>
-                                    <clipPath id="clip-path-3" transform="translate(-264.41 -245.59)">
-                                        <rect class="cls-1" x="255.41" y="238.59" width="163.2" height="153.2"></rect>
-                                    </clipPath></defs>
-                                        <path style="fill: #fff" class="cls-5" d="M378.93,318.19,311,357.4V279Zm30.68,0a72.6,72.6,0,1,0-72.6,72.6,72.6,72.6,0,0,0,72.6-72.6" transform="translate(-264.41 -245.59)"></path>
+                                <svg class="list-item-play-icon" viewBox="0 0 145.2 145.2">
+                                    <use href="#play-icon-symbol"></use>
                                 </svg>
                             </div>
                             <div class="episode-list-title-description">
