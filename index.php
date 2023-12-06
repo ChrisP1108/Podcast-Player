@@ -75,24 +75,14 @@
                             <!-- Play Icon SVG Code START -->
 
                             <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 145.2 145.2"><defs>
-                                <style>
-                                    <!-- .cls-1 { fill: none; }       -->
-                                    .cls-2 { clip-path: url(#clip-path); }      
-                                    .cls-3 { opacity: 1; }      
-                                    .cls-4 { clip-path: url(#clip-path-3); }         
-                                </style>
+                                
                                 <clipPath id="clip-path" transform="translate(-264.41 -245.59)">
                                     <rect class="cls-1" x="264.41" y="245.59" width="145.2" height="145.2"></rect>
                                 </clipPath>
                                 <clipPath id="clip-path-3" transform="translate(-264.41 -245.59)">
                                     <rect class="cls-1" x="255.41" y="238.59" width="163.2" height="153.2"></rect>
                                 </clipPath></defs>
-                                <g class="cls-2">
-                                <g class="cls-2">
-                                <g class="cls-3">
-                                <g class="cls-4">
-                                <path style="fill: #fff" class="cls-5" d="M378.93,318.19,311,357.4V279Zm30.68,0a72.6,72.6,0,1,0-72.6,72.6,72.6,72.6,0,0,0,72.6-72.6" transform="translate(-264.41 -245.59)"></path>
-                                </g></g></g></g>
+                                <path style="fill: #fff" d="M378.93,318.19,311,357.4V279Zm30.68,0a72.6,72.6,0,1,0-72.6,72.6,72.6,72.6,0,0,0,72.6-72.6" transform="translate(-264.41 -245.59)"></path>
                             </svg>
 
                             <!-- Play Icon SVG Code END -->
@@ -137,24 +127,13 @@
                             <div class="episode-list-image-play">
                                 <img src="<?php echo $podcast_image; ?>" alt="<?php echo $episode->title; ?>">
                                 <svg class="list-item-play-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 145.2 145.2"><defs>
-                                    <style>
-                                        .lpi-1 { fill: none; }      
-                                        .lpi-2 { clip-path: url(#clip-path); }      
-                                        .lpi-3 { opacity: inherit; }      
-                                        .lpi-4 { clip-path: url(#clip-path-3); }         
-                                    </style>
                                     <clipPath id="clip-path" transform="translate(-264.41 -245.59)">
-                                        <rect class="lpi-1" x="264.41" y="245.59" width="145.2" height="145.2"></rect>
+                                        <rect class="cls-1" x="264.41" y="245.59" width="145.2" height="145.2"></rect>
                                     </clipPath>
                                     <clipPath id="clip-path-3" transform="translate(-264.41 -245.59)">
-                                        <rect class="lpi-1" x="255.41" y="238.59" width="163.2" height="153.2"></rect>
+                                        <rect class="cls-1" x="255.41" y="238.59" width="163.2" height="153.2"></rect>
                                     </clipPath></defs>
-                                    <g class="lpi-2">
-                                    <g class="lpi-2">
-                                    <g class="lpi-3">
-                                    <g class="lpi-4">
-                                    <path style="fill: #fff" class="cls-5" d="M378.93,318.19,311,357.4V279Zm30.68,0a72.6,72.6,0,1,0-72.6,72.6,72.6,72.6,0,0,0,72.6-72.6" transform="translate(-264.41 -245.59)"></path>
-                                    </g></g></g></g>
+                                        <path style="fill: #fff" class="cls-5" d="M378.93,318.19,311,357.4V279Zm30.68,0a72.6,72.6,0,1,0-72.6,72.6,72.6,72.6,0,0,0,72.6-72.6" transform="translate(-264.41 -245.59)"></path>
                                 </svg>
                             </div>
                             <div class="episode-list-title-description">
