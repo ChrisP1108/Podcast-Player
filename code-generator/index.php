@@ -44,7 +44,7 @@
                     </section>
                     <section>
                         <label for="progressbarcolor">Progress Bar Color</label>
-                        <input name="progressbarcolor" id="progressbarcolor" type="color" value="#333333">
+                        <input name="progressbarcolor" id="progressbarcolor" type="color" value="#752300">
                     </section>
                     <section>
                         <label for="buttoncolor">Play/Pause Button Color</label>
