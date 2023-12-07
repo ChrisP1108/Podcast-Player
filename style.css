@@ -181,7 +181,7 @@ header img {
     cursor: pointer;
     margin-top: 0.75rem;
     width: 100%;
-    height: calc(12px + 0.75rem);
+    height: calc(4px + 0.75rem);
     border-radius: 2rem;
     background: var(--progressBarColor);
     position: relative;
