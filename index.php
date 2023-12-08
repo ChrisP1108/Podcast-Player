@@ -46,7 +46,7 @@
             --highlightcolor: <?php echo $style_highlight; ?>;
             --scrollbarcolor : <?php echo $style_scrollbar; ?>; 
         }
-        .play-icon path, .pause-icon path {
+        .play-icon *, .pause-icon * {
             fill: <?php echo $style_play_button; ?> !important;
         }
     </style>
