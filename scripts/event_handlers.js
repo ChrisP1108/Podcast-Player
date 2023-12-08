@@ -54,6 +54,10 @@ function setCurrentPlayTime() {
     episodeTime.innerText = audio.duration > 3600 ? `${hours}:${minutes}:${seconds}` : audio.duration > 60 ? `${minutes}:${seconds}` : `00:${seconds}`;
 }
 
+function progressBarTimeCalc() {
+    return `${100 - ((audio.currentTime / audio.duration) * 100)}%`
+}
+
 // Toggle Play
 
 let playing = true;
@@ -69,7 +73,7 @@ function togglePlay(starting) {
             playButtonIcon.classList.add("playing-active");
         });
         playCounter = setInterval(() => {
-            progressFiller.style.right = `${100 - ((audio.currentTime / audio.duration) * 100)}%`;
+            progressFiller.style.right = progressBarTimeCalc();
             setCurrentPlayTime();
         }, 250);
     } else {
@@ -79,10 +83,43 @@ function togglePlay(starting) {
     }
 }
 
+// Play Button Click Handler
+
 playButtonIcon.addEventListener("click", () => togglePlay(false));
+
+// Pause/Play On Space Bar Or Advance Play Time From Left Or Right Arrows
+
 window.addEventListener("keyup", e => {
-    if (e.code === "Space") {
-        togglePlay();
+
+    switch(e.code) {
+
+        // Play Pause Space Bar
+
+        case 'Space':
+            togglePlay();
+            break;
+    }
+});
+
+window.addEventListener("keydown", e => {
+
+    switch(e.code) {
+        
+        // Arrow Left Rewind One Second
+
+        case 'ArrowLeft':
+            audio.currentTime = audio.currentTime - 1;
+            progressBarTimeCalc();
+            setCurrentPlayTime();
+            break;
+
+        // Arrow Right Advance One Second
+
+        case 'ArrowRight':
+            audio.currentTime = audio.currentTime + 1;
+            progressBarTimeCalc();
+            setCurrentPlayTime();
+            break;
     }
 });
 
@@ -98,6 +135,8 @@ function setProgressBar(e) {
     setCurrentPlayTime();
 }
 
+// Handle Click, Mouse Down, Mouse Move And Mouse Up On Progress Bar
+
 progressBar.addEventListener("click", setProgressBar);
 progressBar.addEventListener("mousedown", (e) => {
     progressBar.addEventListener("mousemove", setProgressBar, true)
@@ -105,7 +144,6 @@ progressBar.addEventListener("mousedown", (e) => {
 window.addEventListener("mouseup", () => {
     progressBar.removeEventListener("mousemove", setProgressBar, true);
 });
-
 
 // Episode Description Text Scroll Across Handling
 
@@ -251,7 +289,6 @@ if (fullPlayer) {
 setTotalEpisodeTime(null, 'init');
 
 // Advance To Next Episode When Current One Finishes
-
 
     audio.addEventListener("ended", () => {
         if (fullPlayer) {
