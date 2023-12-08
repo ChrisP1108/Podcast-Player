@@ -273,6 +273,10 @@ header img {
     margin-top: 0.25rem;
 }
 
+.list-item-play-icon * {
+    fill: #fff;
+}
+
 .list-item-active::before {
     opacity: 1 !important;
     background: var(--highlightcolor);
