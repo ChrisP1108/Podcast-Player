@@ -66,7 +66,7 @@ p {
 }
 
 main {
-    max-width: 1920px;
+    width: min(1920px, 100%);
     margin: auto;
     overflow: hidden;
 }
@@ -298,6 +298,14 @@ header img {
 
     .player-control-container {
         padding: 0 2%;
+    }
+
+    .player-control-title-links h3 {
+        text-align: center;
+    }
+
+    .play-episode-container {
+        justify-content: center;
     }
 
 }
