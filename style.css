@@ -53,6 +53,7 @@ h4 {
 h5 {
     font-size: min(1rem, 5vw);
     font-weight: 400;
+    text-wrap: balance;
 }
 
 h6 {
@@ -69,6 +70,10 @@ main {
     width: min(1920px, 100%);
     margin: auto;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100vh;
 }
 
 .error-msg {
@@ -85,7 +90,7 @@ main {
 }
 
 header {
-    padding: 0 max(16px, 1%);
+    padding: 16px max(16px, 1%);
     display: flex;
     align-items: center;
     height: auto;
@@ -202,6 +207,7 @@ header img {
     list-style: none;
     overflow-x: hidden;
     overflow-y: auto;
+    margin-bottom: 16px;
 }
 
 #episodes-list li {
