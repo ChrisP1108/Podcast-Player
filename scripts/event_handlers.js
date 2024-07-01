@@ -1,21 +1,3 @@
-// Size Handling.  Height Of Header And List To Fill Screen Height Accordingly
-
-function setSectionHeights() {
-    const main = document.querySelector("main");
-    main.style.height = `${window.innerHeight}px`;
-    const padding = 16;
-    const headerMarginBottom = 16;
-    header.style.marginBottom = `${headerMarginBottom}px`;
-    header.style.paddingTop = `${padding}px`;
-    const remainderHeight = (window.innerHeight - header.clientHeight) - headerMarginBottom;
-    episodeListContainer.style.height = `${remainderHeight - padding}px`;
-}
-
-if (fullPlayer) {
-    setSectionHeights();
-    window.addEventListener("resize", setSectionHeights);
-}
-
 // Set Current Play Time
 
 let playCounter = null;
