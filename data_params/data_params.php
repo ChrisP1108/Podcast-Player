@@ -156,21 +156,13 @@
 
                 $parsed_rss_feed->channel->rssUrl = $rss_url;
 
-                $parsed_rss_feed->channel->title = htmlspecialchars($parsed_rss_feed->channel->title);
-
-                $parsed_rss_feed->channel->description = strip_tags(htmlspecialchars($parsed_rss_feed->channel->description));
+                $parsed_rss_feed->channel->description = strip_tags($parsed_rss_feed->channel->description);
 
                 $item_iteration_count = 0;
 
                 foreach($parsed_rss_feed->channel->item as $index=>$item) {
-                    $description_text = htmlspecialchars(strip_tags($item->description));
+                    $description_text = strip_tags($item->description);
                     $item->description = $description_text;
-
-                    $title_text = htmlspecialchars($item->title);
-                    $item->title = $title_text;
-
-                    $guid = htmlspecialchars(strip_tags($item->guid));
-                    $item->guid = $guid;
 
                     if ($single_episode !== 'false' && strval($item->guid) === $single_episode) {
                         $track_selected = $item_iteration_count;
