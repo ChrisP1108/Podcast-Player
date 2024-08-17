@@ -82,8 +82,8 @@
 
         <main>
             <header>
-                <a href="<?php echo $channel->link; ?>" target="_blank" rel="nofollow">
-                    <img src="<?php echo $podcast_image; ?>" alt="<?php echo $channel->title ?>">
+                <a href="<?php echo htmlspecialchars($channel->link); ?>" target="_blank" rel="nofollow">
+                    <img src="<?php echo htmlspecialchars($podcast_image); ?>" alt="<?php echo htmlspecialchars($channel->title) ?>">
                 </a>
                 <div class="player-control-container">
                     <div class="player-control-title-links">
@@ -108,7 +108,7 @@
                             <!-- Pause Icon SVG Code END -->
 
                             <!-- Audio Play -->
-                            <audio id="audio-play" src="<?php echo $audio_data->url; ?>">
+                            <audio id="audio-play" src="<?php echo htmlspecialchars($audio_data->url); ?>">
                         </div>
                         <div class="play-title-time-text">
                             <h5 id="episode-selected-title">
@@ -135,9 +135,9 @@
                 <ol id="episodes-list">
                     <?php foreach($episodes as $episode): ?>
                     
-                        <li data-episodeid="<?php echo $episode->guid; ?>">
+                        <li data-episodeid="<?php echo htmlspecialchars($episode->guid); ?>">
                             <div class="episode-list-image-play">
-                                <img src="<?php echo $podcast_image; ?>" alt="<?php echo $episode->title; ?>">
+                                <img src="<?php echo htmlspecialchars($podcast_image); ?>" alt="<?php echo htmlspecialchars($episode->title); ?>">
                                 <svg class="list-item-play-icon" viewBox="0 0 145.2 145.2">
                                     <use href="#play-icon-symbol"></use>
                                 </svg>
