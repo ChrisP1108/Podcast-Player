@@ -156,25 +156,14 @@
 
                 $parsed_rss_feed->channel->rssUrl = $rss_url;
 
-                $parsed_rss_feed->channel->title = htmlspecialchars($parsed_rss_feed->channel->title);
-
-                $parsed_rss_feed->channel->title = str_replace("&amp;", "&", $parsed_rss_feed->channel->title);
-
-                $parsed_rss_feed->channel->description = strip_tags(htmlspecialchars($parsed_rss_feed->channel->description));
-
-                $parsed_rss_feed->channel->description = str_replace("&amp;", "&", $parsed_rss_feed->channel->description);
+                $parsed_rss_feed->channel->description = strip_tags($parsed_rss_feed->channel->description);
 
                 $item_iteration_count = 0;
 
                 foreach($parsed_rss_feed->channel->item as $index=>$item) {
-                    $description_text = htmlspecialchars(strip_tags($item->description));
-                    $item->description = str_replace("&amp;", "&", $description_text);
+                    $item->description = strip_tags($item->description);
 
-                    $title_text = htmlspecialchars($item->title);
-                    $item->title = str_replace("&amp;", "&", $title_text);
-
-                    $guid = htmlspecialchars(strip_tags($item->guid));
-                    $item->guid = str_replace("&amp;", "&", $guid);;
+                    $item->guid = strip_tags($item->guid);
 
                     if ($single_episode !== 'false' && strval($item->guid) === $single_episode) {
                         $track_selected = $item_iteration_count;
