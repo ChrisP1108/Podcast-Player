@@ -76,18 +76,18 @@
         <div class="error-msg">
             <h1>Error Loading Podcast</h1>
             <h4><?php echo $err_msg; ?></h4>
-    </div>
+        </div>
 
     <?php else: ?>
 
         <main>
             <header>
-                <a href="<?php echo $channel->link?>" target="_blank" rel="nofollow">
-                    <img src="<?php echo $podcast_image; ?>" alt="<?php echo $channel->title?>">
+                <a href="<?php echo $channel->link; ?>" target="_blank" rel="nofollow">
+                    <img src="<?php echo $podcast_image; ?>" alt="<?php echo $channel->title ?>">
                 </a>
                 <div class="player-control-container">
                     <div class="player-control-title-links">
-                        <h3><?php echo $channel->title?></h3>
+                        <h3><?php echo htmlspecialchars($channel->title); ?></h3>
                     </div>
                     <div class="play-episode-container">
                         <div id="play-pause-button-icons">
@@ -108,11 +108,11 @@
                             <!-- Pause Icon SVG Code END -->
 
                             <!-- Audio Play -->
-                            <audio id="audio-play" src="<?php echo $audio_data->url ?>">
+                            <audio id="audio-play" src="<?php echo $audio_data->url; ?>">
                         </div>
                         <div class="play-title-time-text">
                             <h5 id="episode-selected-title">
-                                <?php echo $episode_selected->title ?>
+                                <?php echo htmlspecialchars($episode_selected->title); ?>
                             </h5>
                             <div id="episode-selected-time">
                                 <h5 id="current-episode-time"></h5>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="player-episode-description-container">
                         <h6 id="player-episode-description">
-                            <?php echo $episode_selected->description; ?>
+                            <?php echo htmlspecialchars($episode_selected->description); ?>
                         </h6>
                     </div>
                     <div id="play-progress-bar">
@@ -143,8 +143,8 @@
                                 </svg>
                             </div>
                             <div class="episode-list-title-description">
-                                <h5><?php echo $episode->title; ?></h5>
-                                <?php echo !strlen($episode->description) ? '' : '<p>'. $episode->description . '</p>'; ?>
+                                <h5><?php echo htmlspecialchars($episode->title); ?></h5>
+                                <?php echo !strlen($episode->description) ? '' : '<p>'. htmlspecialchars($episode->description) . '</p>'; ?>
                             </div>
                         </li>
                     <?php endforeach; ?>
