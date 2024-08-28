@@ -161,6 +161,9 @@
                 $item_iteration_count = 0;
 
                 foreach($parsed_rss_feed->channel->item as $index=>$item) {
+
+                    $item->title = strip_tags($item->title);
+                    
                     $item->description = strip_tags($item->description);
 
                     $item->guid = strip_tags($item->guid);
