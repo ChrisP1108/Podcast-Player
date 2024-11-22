@@ -11,11 +11,11 @@
 
         <!-- Podcast SEO Data START -->
 
-        <meta name="Podcast" content="<?php echo $channel->title; ?>">
-        <meta name="<?php echo $channel->title; ?> Podcast" content="<?php echo $channel->description; ?>">
+        <meta name="Podcast" content="<?= $channel->title; ?>">
+        <meta name="<?= $channel->title; ?> Podcast" content="<?= $channel->description; ?>">
         <?php foreach($episodes as $episode): ?>
             
-            <meta name="<?php echo $episode->title; ?>" content="<?php echo $episode->description; ?>">
+            <meta name="<?= $episode->title; ?>" content="<?= $episode->description; ?>">
 
         <?php endforeach; ?>
 
@@ -24,30 +24,30 @@
     <?php endif; ?>
 
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="icon" type="image/jpeg" href="<?php echo $podcast_image; ?>">
-    <title><?php echo $parsed_rss_feed->channel->title; ?></title>
+    <link rel="icon" type="image/jpeg" href="<?= $podcast_image; ?>">
+    <title><?= $parsed_rss_feed->channel->title; ?></title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=<?php echo $style_font; ?>:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=<?= $style_font; ?>:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
         * {
-            color: <?php echo $style_text_color; ?>;
-            font-family: '<?php echo $style_font; ?>' , sans-serif;
+            color: <?= $style_text_color; ?>;
+            font-family: '<?= $style_font; ?>' , sans-serif;
         }
         body::before {
-            background-image: url(<?php echo $podcast_image; ?>);
+            background-image: url(<?= $podcast_image; ?>);
         }
         body::after {
-            opacity: <?php echo $style_mode === '#fff' ? '0.88' : '0.8'; ?>;
+            opacity: <?= $style_mode === '#fff' ? '0.88' : '0.8'; ?>;
         }
         :root {
             --transition: 0.25s;
-            --theme: <?php echo $style_mode; ?>;
-            --color1: <?php echo $style_color_1; ?>;
-            --progressBarColor: <?php echo $style_progress_bar_color; ?>;
-            --highlightcolor: <?php echo $style_highlight; ?>;
-            --scrollbarcolor : <?php echo $style_scrollbar; ?>; 
+            --theme: <?= $style_mode; ?>;
+            --color1: <?= $style_color_1; ?>;
+            --progressBarColor: <?= $style_progress_bar_color; ?>;
+            --highlightcolor: <?= $style_highlight; ?>;
+            --scrollbarcolor : <?= $style_scrollbar; ?>; 
         }
         .play-icon *, .pause-icon * {
-            fill: <?php echo $style_play_button; ?> !important;
+            fill: <?= $style_play_button; ?> !important;
         }
     </style>
 </head>
@@ -75,19 +75,19 @@
 
         <div class="error-msg">
             <h1>Error Loading Podcast</h1>
-            <h4><?php echo $err_msg; ?></h4>
+            <h4><?= $err_msg; ?></h4>
     </div>
 
     <?php else: ?>
 
         <main>
             <header>
-                <a href="<?php echo $channel->link?>" target="_blank" rel="nofollow">
-                    <img src="<?php echo $podcast_image; ?>" alt="<?php echo $channel->title?>">
+                <a href="<?= $channel->link?>" target="_blank" rel="nofollow">
+                    <img src="<?= $podcast_image; ?>" alt="<?= $channel->title?>">
                 </a>
                 <div class="player-control-container">
                     <div class="player-control-title-links">
-                        <h3><?php echo $channel->title?></h3>
+                        <h3><?= htmlspecialchars($channel->title) ?></h3>
                     </div>
                     <div class="play-episode-container">
                         <div id="play-pause-button-icons">
@@ -108,11 +108,11 @@
                             <!-- Pause Icon SVG Code END -->
 
                             <!-- Audio Play -->
-                            <audio id="audio-play" src="<?php echo $audio_data->url ?>">
+                            <audio id="audio-play" src="<?= $audio_data->url ?>">
                         </div>
                         <div class="play-title-time-text">
                             <h5 id="episode-selected-title">
-                                <?php echo $episode_selected->title ?>
+                                <?= htmlspecialchars($episode_selected->title) ?>
                             </h5>
                             <div id="episode-selected-time">
                                 <h5 id="current-episode-time"></h5>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="player-episode-description-container">
                         <h6 id="player-episode-description">
-                            <?php echo $episode_selected->description; ?>
+                            <?= htmlspecialchars($episode_selected->description) ?>
                         </h6>
                     </div>
                     <div id="play-progress-bar">
@@ -135,16 +135,16 @@
                 <ol id="episodes-list">
                     <?php foreach($episodes as $episode): ?>
                     
-                        <li data-episodeid="<?php echo $episode->guid; ?>">
+                        <li data-episodeid="<?= $episode->guid; ?>">
                             <div class="episode-list-image-play">
-                                <img src="<?php echo $podcast_image; ?>" alt="<?php echo $episode->title; ?>">
+                                <img src="<?= $podcast_image; ?>" alt="<?= $episode->title; ?>">
                                 <svg class="list-item-play-icon" viewBox="0 0 145.2 145.2">
                                     <use href="#play-icon-symbol"></use>
                                 </svg>
                             </div>
                             <div class="episode-list-title-description">
-                                <h5><?php echo $episode->title; ?></h5>
-                                <?php echo !strlen(trim($episode->description)) ? '' : '<p>'. $episode->description . '</p>'; ?>
+                                <h5><?= htmlspecialchars($episode->title); ?></h5>
+                                <?= !strlen(trim($episode->description)) ? '' : '<p>'. htmlspecialchars($episode->description) . '</p>'; ?>
                             </div>
                         </li>
                     <?php endforeach; ?>
@@ -152,9 +152,9 @@
             <?php endif; ?>
         </main>
         <script>
-            const startingEpisodeId = "<?php echo $starting_episode_id; ?>";
-            const rssData = <?php echo $rss_data; ?>;
-            const fullPlayer = "<?php echo $single_episode; ?>" === "false";
+            const startingEpisodeId = "<?= $starting_episode_id; ?>";
+            const rssData = <?= $rss_data; ?>;
+            const fullPlayer = "<?= $single_episode; ?>" === "false";
         </script>
         <script src="scripts/rss_data.js"></script>
         <script src="scripts/element_selectors.js"></script>
