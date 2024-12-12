@@ -41,19 +41,31 @@
         $style_mode = '#' . $style_mode;
     }
 
-    $style_color_1 = '#' . $params['color1'] ?? '#bbbbbb';
+    $style_color_1 = $params['color1'] ?? 'bbbbbb';
 
-    $style_progress_bar_color = '#' . $params['progressbarcolor'] ?? '#616161';
+    $style_color_1 = '#' . $style_color_1;
 
-    $style_play_button = '#' . $params['buttoncolor'] ?? '#ffffff';
+    $style_progress_bar_color = $params['progressbarcolor'] ?? '616161';
 
-    $style_highlight = '#' . $params['highlightcolor'] ?? '#888888';
+    $style_progress_bar_color = '#' . $style_progress_bar_color;
 
-    $style_scrollbar = '#' . $params['scrollcolor'] ?? '#bbbbbb';
+    $style_play_button = $params['buttoncolor'] ?? 'ffffff';
+
+    $style_play_button = '#' . $style_play_button;
+
+    $style_highlight = $params['highlightcolor'] ?? '888888';
+
+    $style_highlight = '#' . $style_highlight;
+
+    $style_scrollbar = $params['scrollcolor'] ?? 'bbbbbb';
+
+    $style_scrollbar = '#' . $style_scrollbar;
+
+    $style_text_color = $params['textcolor'] ?? 'ffffff';
+
+    $style_text_color = '#' . $style_text_color;
 
     $style_font = $params['font'] ?? 'Poppins';
-
-    $style_text_color = '#' . $params['textcolor'] ?? '#ffffff';
 
     // Track Selection
 
