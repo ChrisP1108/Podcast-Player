@@ -8,110 +8,52 @@
 
     $url_components = parse_url($url_origin);
 
-    parse_str($url_components['query'], $params);
+    // Variables For Error Handling
+
+    $error_loading_rss = false;
+
+    $err_msg = null;
+
+    if (empty($url_components['query'])) {
+        $error_loading_rss = true;
+    } 
+
+    parse_str($url_components['query'] ?? '', $params);
 
     // Url Parameters
 
-    $rss_url = $params['url'];
+    $rss_url = $params['url'] ?? null;
 
     // Styling Parameters
 
-    $style_mode = $params['mode'] ?? null;
+    $style_mode = $params['mode'] ?? 'dark';
 
-    if ($style_mode !== null && $style_mode !== 'dark' && $style_mode !== 'light') {
+    if ($style_mode === 'dark' || $style_mode === 'light') {
+        switch($style_mode) {
+            case 'dark':
+                $style_mode = '#000';
+                break;
+            default:
+                $style_mode = '#fff';
+                break;
+        }
+    } else {
         $style_mode = '#' . $style_mode;
     }
 
-    switch($style_mode) {
-        case 'dark':
-            $style_mode = '#000';
-            break;
-        case 'light':
-            $style_mode = '#fff';
-            break;
-    }
+    $style_color_1 = '#' . $params['color1'] ?? '#bbbbbb';
 
-    if ($style_mode === null) {
-        $style_mode = '#fff';
-    }
+    $style_progress_bar_color = '#' . $params['progressbarcolor'] ?? '#616161';
 
-    $style_color_1 = $params['color1'] ?? null;
+    $style_play_button = '#' . $params['buttoncolor'] ?? '#ffffff';
 
-    if (!$style_color_1) {
-        if ($style_mode === '#000') {
-            $style_color_1 = '#999999';
-        } else {
-            $style_color_1 = '#aaa';
-        }
-    } else {
-        $style_color_1 = '#' . $style_color_1;
-    }
+    $style_highlight = '#' . $params['highlightcolor'] ?? '#888888';
 
-    $style_progress_bar_color = $params['progressbarcolor'] ?? null;
+    $style_scrollbar = '#' . $params['scrollcolor'] ?? '#bbbbbb';
 
-    if (!$style_progress_bar_color) {
-        if ($style_mode === '#000') {
-            $style_progress_bar_color = '#616161';
-        } else {
-            $style_progress_bar_color = '#777';
-        }
-    } else {
-        $style_progress_bar_color = '#' . $style_progress_bar_color;
-    }
+    $style_font = $params['font'] ?? 'Poppins';
 
-    $style_play_button = $params['buttoncolor'] ?? null;
-
-    if (!$style_play_button) {
-        if ($style_mode === '#000') {
-            $style_play_button = '#fff';
-        } else {
-            $style_play_button = '#666';
-        }
-    } else {
-        $style_play_button = '#' . $style_play_button; 
-    }
-
-    $style_highlight = $params['highlightcolor'] ?? null;
-
-    if (!$style_highlight) {
-        if ($style_mode === '#000') {
-            $style_highlight = '#fff';
-        } else {
-            $style_highlight = '#666';
-        }
-    } else {
-        $style_highlight = '#' . $style_highlight; 
-    }
-
-    $style_scrollbar = $params['scrollcolor'] ?? null;
-
-    if (!$style_scrollbar) {
-        if ($style_mode === '#000') {
-            $style_scrollbar = '#fff';
-        } else {
-            $style_scrollbar = '#666';
-        }
-    } else {
-        $style_scrollbar = '#' . $style_scrollbar; 
-    }
-
-    $style_font = $params['font'] ?? null;
-
-    if (!$style_font) {
-        $style_font = 'Poppins';
-    }
-
-    $style_text_color = $params['textcolor'] ?? null;
-
-    if (!$style_text_color) {
-        if ($style_mode === '#000') {
-            $style_text_color = '#fff';
-        } else {
-            $style_text_color = '#000';
-        }
-    } else {
-        $style_text_color = '#' . $style_text_color; 
-    }
+    $style_text_color = '#' . $params['textcolor'] ?? '#ffffff';
 
     // Track Selection
 
@@ -127,12 +69,6 @@
 
     $add_date_to_title = $params['adddatetotitle'] ?? null;
 
-    // Variables For Error Handling
-
-    $error_loading_rss = false;
-
-    $err_msg = null;
-
     // Check That RSS Url Parameter Exists. If Not, Show Error Msg
 
     if (!$rss_url) {
@@ -141,7 +77,11 @@
 
     // Get RSS Feed Data
 
-    $rss_feed = @file_get_contents($rss_url);
+    $rss_feed = null;
+
+    if ($rss_url) {
+        $rss_feed = @file_get_contents($rss_url);
+    }
 
     // Check For Error.  If No Error, Parse RSS Feed Data
 
@@ -155,7 +95,6 @@
         if (!$parsed_rss_feed) {
             $error_loading_rss = true;
         } else {
-
             if (!$parsed_rss_feed->channel) {
                 $error_loading_rss = true;
             } else {
